@@ -6,27 +6,35 @@ document.addEventListener('DOMContentLoaded', function () {
         attribution: '&copy; OpenStreetMap contributors'
     }).addTo(map1);
 
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; OpenStreetMap contributors'
-    }).addTo(map2);
-
     L.tileLayer('http://www.google.cn/maps/vt?lyrs=s@189&gl=cn&x={x}&y={y}&z={z}', {
         attribution: '&copy; Google'
     }).addTo(map2);
 
-    // Function to load and add GeoJSON data to both maps
-    let loadPolygon = async function() {
-        let myData = await fetch("CORUÑA.geojson");
-        let myPolygon = await myData.json();
-    
-        let geoJsonLayer = L.geoJSON(myPolygon, {
-            style: { color: 'blue' }
-        });
+// Function to load and add GeoJSON data to map2
+let loadPolygon = async function() {
+    let myData = await fetch("CORUÑA.geojson");
+    let myPolygon = await myData.json();
 
-        geoJsonLayer.addTo(map1); // Add to map1
-        geoJsonLayer.addTo(map2); // Add to map2
-    };
-    loadPolygon();
+    let geoJsonLayer = L.geoJSON(myPolygon, {
+        style: { color: 'blue' }
+    });
+
+    geoJsonLayer.addTo(map2); // Add to map2
+};
+loadPolygon();
+
+// Function to load and add GeoJSON data to map1
+let loadPolygon2 = async function() {
+    let myData = await fetch("CORUÑA.geojson");
+    let myPolygon = await myData.json();
+
+    let geoJsonLayer = L.geoJSON(myPolygon, {
+        style: { color: 'blue' }
+    });
+
+    geoJsonLayer.addTo(map1); // Add to map1
+};
+loadPolygon2();
 
     // Synchronize both maps
     map1.sync(map2);
