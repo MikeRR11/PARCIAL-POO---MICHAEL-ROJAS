@@ -1,5 +1,5 @@
-// Import the Earth Engine API
-const ee = require('@google/earthengine');
+// Load the Earth Engine API
+// <script src="https://cdn.jsdelivr.net/npm/@google/earthengine@0.1.238/ee-api.js"></script>
 
 async function showNDVIOnMap(map) {
     console.log("Starting NDVI calculation...");
@@ -79,3 +79,30 @@ async function showSAVIOnMap(map) {
         console.error("Error calculating SAVI:", error);
     }
 }
+
+// Function to initialize the map and show NDVI and SAVI
+async function initializeMap() {
+    // Initialize the map
+    var map3 = L.map('map3').setView([4.60971, -74.08175], 10);
+
+    // Add a base layer
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map3);
+
+    // Authenticate with Earth Engine
+    ee.data.authenticateViaOauth('YOUR_OAUTH_CLIENT_ID', function() {
+        ee.initialize(null, null, function() {
+            console.log('Earth Engine initialized.');
+            showNDVIOnMap(map3);
+            showSAVIOnMap(map3);
+        }, function(error) {
+            console.error('Error initializing Earth Engine:', error);
+        });
+    }, function(error) {
+        console.error('Error authenticating with Earth Engine:', error);
+    });
+}
+
+// Call the initializeMap function
+initializeMap();

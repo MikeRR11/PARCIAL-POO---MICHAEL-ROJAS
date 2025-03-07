@@ -40,6 +40,7 @@ document.addEventListener('DOMContentLoaded', function () {
     //sincronizar mapa 1 y mapa 2
     map1.sync(map2);
     map2.sync(map1);
+    
 
     var map3 = L.map('map3').setView([4.49, -74.15265], 11.5);
 
