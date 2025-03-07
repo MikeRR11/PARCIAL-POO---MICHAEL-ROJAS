@@ -57,12 +57,22 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Function to display NDVI using Google Earth Engine API
     let showNDVI = async function() {
-        await showNDVIOnMap(map3);
+        console.log("NDVI button clicked");
+        try {
+            await showNDVIOnMap(map3);
+        } catch (error) {
+            console.error("Error displaying NDVI:", error);
+        }
     };
 
     // Function to display SAVI using Google Earth Engine API
     let showSAVI = async function() {
-        await showSAVIOnMap(map3);
+        console.log("SAVI button clicked");
+        try {
+            await showSAVIOnMap(map3);
+        } catch (error) {
+            console.error("Error displaying SAVI:", error);
+        }
     };
 
     // Add buttons to the map3 container
