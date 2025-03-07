@@ -36,6 +36,48 @@ let loadPolygon2 = async function() {
 };
 loadPolygon2();
 
+    // Function to load and add GeoJSON data for the locality
+    let loadLocalidadPolygon = async function() {
+        let myData = await fetch("localidad.geojson");
+        let myPolygon = await myData.json();
+
+        let geoJsonLayer = L.geoJSON(myPolygon, {
+            style: { color: 'red' }
+        });
+
+        geoJsonLayer.addTo(map1).addTo(map2); // Add to both maps
+    };
+    loadLocalidadPolygon();
+
+    // Function to display NDVI using Google Earth Engine API
+    let showNDVI = async function() {
+        // Implement the logic to fetch and display NDVI using Google Earth Engine API
+        console.log("NDVI button clicked");
+    };
+
+    // Function to display SAVI using Google Earth Engine API
+    let showSAVI = async function() {
+        // Implement the logic to fetch and display SAVI using Google Earth Engine API
+        console.log("SAVI button clicked");
+    };
+
+    // Add buttons to the map container
+    let buttonContainer = document.createElement('div');
+    buttonContainer.className = 'button-container';
+
+    let ndviButton = document.createElement('button');
+    ndviButton.innerText = 'Show NDVI';
+    ndviButton.onclick = showNDVI;
+
+    let saviButton = document.createElement('button');
+    saviButton.innerText = 'Show SAVI';
+    saviButton.onclick = showSAVI;
+
+    buttonContainer.appendChild(ndviButton);
+    buttonContainer.appendChild(saviButton);
+
+    document.querySelector('.map-container').appendChild(buttonContainer);
+
     // Synchronize both maps
     map1.sync(map2);
     map2.sync(map1);
