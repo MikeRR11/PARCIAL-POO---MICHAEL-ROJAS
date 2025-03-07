@@ -1,9 +1,4 @@
-document.addEventListener('DOMContentLoaded', async function () {
-    // Initialize the Google Earth Engine API
-    await new Promise((resolve, reject) => {
-        ee.initialize(null, null, resolve, reject);
-    });
-
+document.addEventListener('DOMContentLoaded', function () {
     var map1 = L.map('map1').setView([4.5786, -74.15265], 17);
     var map2 = L.map('map2').setView([4.5786, -74.15265], 17);
 
@@ -41,7 +36,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     };
     loadPolygon2();
 
-    var map3 = L.map('map3').setView([4.49, -74.15265], 12);
+    var map3 = L.map('map3').setView([4.49, -74.15265], 11.5);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; OpenStreetMap contributors'
@@ -62,22 +57,12 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     // Function to display NDVI using Google Earth Engine API
     let showNDVI = async function() {
-        console.log("NDVI button clicked");
-        try {
-            await showNDVIOnMap(map3);
-        } catch (error) {
-            console.error("Error displaying NDVI:", error);
-        }
+        await showNDVIOnMap(map3);
     };
 
     // Function to display SAVI using Google Earth Engine API
     let showSAVI = async function() {
-        console.log("SAVI button clicked");
-        try {
-            await showSAVIOnMap(map3);
-        } catch (error) {
-            console.error("Error displaying SAVI:", error);
-        }
+        await showSAVIOnMap(map3);
     };
 
     // Add buttons to the map3 container
