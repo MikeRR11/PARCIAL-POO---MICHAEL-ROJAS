@@ -10,31 +10,37 @@ document.addEventListener('DOMContentLoaded', function () {
         attribution: '&copy; Google'
     }).addTo(map2);
 
-// Function to load and add GeoJSON data to map2
-let loadPolygon = async function() {
-    let myData = await fetch("CORUÑA.geojson");
-    let myPolygon = await myData.json();
+    // Function to load and add GeoJSON data to map2
+    let loadPolygon = async function() {
+        let myData = await fetch("CORUÑA.geojson");
+        let myPolygon = await myData.json();
 
-    let geoJsonLayer = L.geoJSON(myPolygon, {
-        style: { color: 'blue' }
-    });
+        let geoJsonLayer = L.geoJSON(myPolygon, {
+            style: { color: 'blue' }
+        });
 
-    geoJsonLayer.addTo(map2); // Add to map2
-};
-loadPolygon();
+        geoJsonLayer.addTo(map2); // Add to map2
+    };
+    loadPolygon();
 
-// Function to load and add GeoJSON data to map1
-let loadPolygon2 = async function() {
-    let myData = await fetch("CORUÑA.geojson");
-    let myPolygon = await myData.json();
+    // Function to load and add GeoJSON data to map1
+    let loadPolygon2 = async function() {
+        let myData = await fetch("CORUÑA.geojson");
+        let myPolygon = await myData.json();
 
-    let geoJsonLayer = L.geoJSON(myPolygon, {
-        style: { color: 'blue' }
-    });
+        let geoJsonLayer = L.geoJSON(myPolygon, {
+            style: { color: 'blue' }
+        });
 
-    geoJsonLayer.addTo(map1); // Add to map1
-};
-loadPolygon2();
+        geoJsonLayer.addTo(map1); // Add to map1
+    };
+    loadPolygon2();
+
+    var map3 = L.map('map3').setView([4.5786, -74.15265], 17);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map3);
 
     // Function to load and add GeoJSON data for the locality
     let loadLocalidadPolygon = async function() {
@@ -45,7 +51,7 @@ loadPolygon2();
             style: { color: 'red' }
         });
 
-        geoJsonLayer.addTo(map1).addTo(map2); // Add to both maps
+        geoJsonLayer.addTo(map3); // Add to new map
     };
     loadLocalidadPolygon();
 
@@ -77,19 +83,4 @@ loadPolygon2();
     buttonContainer.appendChild(saviButton);
 
     document.querySelector('.map-container').appendChild(buttonContainer);
-
-    // Synchronize both maps
-    map1.sync(map2);
-    map2.sync(map1);
-
-    // Example of how to load additional layers
-    // let loadAdditionalLayer = async function() {
-    //     let additionalData = await fetch("ADDITIONAL_LAYER.geojson");
-    //     let additionalLayer = await additionalData.json();
-    
-    //     L.geoJSON(additionalLayer, {
-    //         style: { color: 'green' }
-    //     }).addTo(map1).addTo(map2); // Add to both maps
-    // };
-    // loadAdditionalLayer();
 });

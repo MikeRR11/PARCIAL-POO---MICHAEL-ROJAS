@@ -1,9 +1,60 @@
 async function showNDVI() {
-    // Implement the logic to fetch and display NDVI using Google Earth Engine API
-    console.log("NDVI button clicked");
+    // PASO 1: Definir el área de localidad
+    var bogota = ee.FeatureCollection('FAO/GAUL/2015/level2')
+                   .filter(ee.Filter.eq('ADM2_NAME', 'Bogotá'));
+
+    // PASO 2: Cargar la colección de imágenes (Landsat 8 es una buena opción)
+    var collection = ee.ImageCollection('LANDSAT/LC08/C02/T1_TOA')
+                      .filterBounds(bogota)   // Filtrar por Bogotá
+                      .filterDate('2023-01-01', '2023-12-31');  // Rango temporal
+
+    // PASO 3: Seleccionar la imagen más reciente con menos nubes
+    var image = collection.sort('CLOUD_COVER').first();
+
+    // PASO 4: Recortar la imagen al área de Bogotá
+    var imageBogota = image.clip(bogota);
+
+    // PASO 5: Calcular NDVI usando .expression()
+    var ndvi = imageBogota.expression(
+        '(NIR - RED) / (NIR + RED)',
+        {
+            'NIR': imageBogota.select('B5'),   // Banda NIR
+            'RED': imageBogota.select('B4')    // Banda RED
+        }
+    ).rename('NDVI');
+
+    // PASO 8: Mostrar resultados en el mapa
+    Map.centerObject(bogota, 10); // Centrar en Bogotá
+    Map.addLayer(ndvi, {min: -1, max: 1, palette: ['blue', 'white', 'green']}, 'NDVI');
 }
 
 async function showSAVI() {
-    // Implement the logic to fetch and display SAVI using Google Earth Engine API
-    console.log("SAVI button clicked");
+    // PASO 1: Definir el área de localidad
+    var bogota = ee.FeatureCollection('FAO/GAUL/2015/level2')
+                   .filter(ee.Filter.eq('ADM2_NAME', 'Bogotá'));
+
+    // PASO 2: Cargar la colección de imágenes (Landsat 8 es una buena opción)
+    var collection = ee.ImageCollection('LANDSAT/LC08/C02/T1_TOA')
+                      .filterBounds(bogota)   // Filtrar por Bogotá
+                      .filterDate('2023-01-01', '2023-12-31');  // Rango temporal
+
+    // PASO 3: Seleccionar la imagen más reciente con menos nubes
+    var image = collection.sort('CLOUD_COVER').first();
+
+    // PASO 4: Recortar la imagen al área de Bogotá
+    var imageBogota = image.clip(bogota);
+
+    // PASO 6: Calcular SAVI usando .expression()
+    var savi = imageBogota.expression(
+        '((NIR - RED) / (NIR + RED + L)) * (1 + L)',
+        {
+            'NIR': imageBogota.select('B5'),
+            'RED': imageBogota.select('B4'),
+            'L': 0.5
+        }
+    ).rename('SAVI');
+
+    // PASO 8: Mostrar resultados en el mapa
+    Map.centerObject(bogota, 10); // Centrar en Bogotá
+    Map.addLayer(savi, {min: -1, max: 1, palette: ['yellow', 'orange', 'green']}, 'SAVI');
 }
