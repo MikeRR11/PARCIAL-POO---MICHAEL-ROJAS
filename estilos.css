@@ -64,6 +64,10 @@ body {
     border-right: none;
 }
 
+.map-container + .map-container {
+    margin-top: 20px; /* Add margin between the two map containers */
+}
+
 .button-container {
     position: absolute;
     top: 10px;

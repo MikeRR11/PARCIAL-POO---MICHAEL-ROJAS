@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function () {
         await showSAVIOnMap(map3);
     };
 
-    // Add buttons to the map container
+    // Add buttons to the map3 container
     let buttonContainer = document.createElement('div');
     buttonContainer.className = 'button-container';
 
@@ -80,5 +80,5 @@ document.addEventListener('DOMContentLoaded', function () {
     buttonContainer.appendChild(ndviButton);
     buttonContainer.appendChild(saviButton);
 
-    document.querySelector('.map-container').appendChild(buttonContainer);
+    document.querySelector('#map3').appendChild(buttonContainer);
 });
