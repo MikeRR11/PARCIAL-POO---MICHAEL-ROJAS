@@ -1,4 +1,4 @@
-async function showNDVI() {
+async function showNDVIOnMap(map) {
     // PASO 1: Definir el área de localidad
     var bogota = ee.FeatureCollection('FAO/GAUL/2015/level2')
                    .filter(ee.Filter.eq('ADM2_NAME', 'Bogotá'));
@@ -24,11 +24,11 @@ async function showNDVI() {
     ).rename('NDVI');
 
     // PASO 8: Mostrar resultados en el mapa
-    Map.centerObject(bogota, 10); // Centrar en Bogotá
-    Map.addLayer(ndvi, {min: -1, max: 1, palette: ['blue', 'white', 'green']}, 'NDVI');
+    var ndviLayer = ui.Map.Layer(ndvi, {min: -1, max: 1, palette: ['blue', 'white', 'green']}, 'NDVI');
+    map.layers().set(0, ndviLayer);
 }
 
-async function showSAVI() {
+async function showSAVIOnMap(map) {
     // PASO 1: Definir el área de localidad
     var bogota = ee.FeatureCollection('FAO/GAUL/2015/level2')
                    .filter(ee.Filter.eq('ADM2_NAME', 'Bogotá'));
@@ -55,6 +55,6 @@ async function showSAVI() {
     ).rename('SAVI');
 
     // PASO 8: Mostrar resultados en el mapa
-    Map.centerObject(bogota, 10); // Centrar en Bogotá
-    Map.addLayer(savi, {min: -1, max: 1, palette: ['yellow', 'orange', 'green']}, 'SAVI');
+    var saviLayer = ui.Map.Layer(savi, {min: -1, max: 1, palette: ['yellow', 'orange', 'green']}, 'SAVI');
+    map.layers().set(0, saviLayer);
 }
