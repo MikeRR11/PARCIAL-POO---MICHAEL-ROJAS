@@ -19,9 +19,12 @@ document.addEventListener('DOMContentLoaded', function () {
         let myData = await fetch("CORUÑA.geojson");
         let myPolygon = await myData.json();
     
-        L.geoJSON(myPolygon, {
+        let geoJsonLayer = L.geoJSON(myPolygon, {
             style: { color: 'blue' }
-        }).addTo(map1).addTo(map2); // Add to both maps
+        });
+
+        geoJsonLayer.addTo(map1); // Add to map1
+        geoJsonLayer.addTo(map2); // Add to map2
     };
     loadPolygon();
 
