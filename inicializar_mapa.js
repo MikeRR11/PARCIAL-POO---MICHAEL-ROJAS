@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
         attribution: '&copy; OpenStreetMap contributors'
     }).addTo(map2);
 
-    L.tileLayer('https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}', {
+    L.tileLayer('http://www.google.cn/maps/vt?lyrs=s@189&gl=cn&x={x}&y={y}&z={z}', {
         attribution: '&copy; Google'
     }).addTo(map2);
 
