@@ -1,3 +1,6 @@
+// Import the Earth Engine API
+const ee = require('@google/earthengine');
+
 async function showNDVIOnMap(map) {
     console.log("Starting NDVI calculation...");
     try {
