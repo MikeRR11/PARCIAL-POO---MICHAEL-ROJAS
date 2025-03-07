@@ -91,7 +91,7 @@ async function initializeMap() {
     }).addTo(map3);
 
     // Authenticate with Earth Engine
-    ee.data.authenticateViaOauth('YOUR_OAUTH_CLIENT_ID', function() {
+    ee.data.authenticateViaOauth('527949182240-j1da1daissqq7obahtguga54ivbq3tl5.apps.googleusercontent.com', function() {
         ee.initialize(null, null, function() {
             console.log('Earth Engine initialized.');
             showNDVIOnMap(map3);
