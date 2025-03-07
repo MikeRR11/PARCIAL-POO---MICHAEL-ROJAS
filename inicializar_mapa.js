@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function () {
     };
     loadPolygon2();
 
-    var map3 = L.map('map3').setView([4.5786, -74.15265], 17);
+    var map3 = L.map('map3').setView([4.49, -74.15265], 12);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; OpenStreetMap contributors'
