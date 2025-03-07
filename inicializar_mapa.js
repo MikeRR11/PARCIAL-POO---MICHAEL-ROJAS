@@ -1,4 +1,9 @@
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', async function () {
+    // Initialize the Google Earth Engine API
+    await new Promise((resolve, reject) => {
+        ee.initialize(null, null, resolve, reject);
+    });
+
     var map1 = L.map('map1').setView([4.5786, -74.15265], 17);
     var map2 = L.map('map2').setView([4.5786, -74.15265], 17);
 
